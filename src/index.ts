@@ -1,17 +1,19 @@
-import path from 'path'
 import { createUnplugin } from 'unplugin'
+import { transformRequest } from './transform'
 import type { GeneralOptions } from './types'
 
 export default createUnplugin<GeneralOptions>((_options, _meta) => {
   return {
     name: 'unplugin-mock',
-    transformInclude(id) {
-      if (id.includes('node_modules'))
-        return false
-
-      if (path.extname(id))
-        return true
-      return false
+    vite: {
+      configResolved(config) {
+        // init local mock server from config
+        // eslint-disable-next-line no-console
+        console.log(config)
+      },
+      configureServer(server) {
+        server.middlewares.use(transformRequest)
+      },
     },
   }
 })

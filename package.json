@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@suger-tdy/eslint-config": "^1.0.8",
+    "@types/webpack": "^5.28.0",
     "bumpp": "^7.1.1",
     "eslint": "^8.15.0",
     "install": "^0.13.0",
