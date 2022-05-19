@@ -61,7 +61,9 @@
   },
   "homepage": "https://github.com/tangdaoyuan/unplugin-mock#readme",
   "peerDependencies": {
-    "vite": "^2.9.6"
+    "esbuild": "*",
+    "rollup": "*",
+    "vite": "*"
   },
   "dependencies": {
     "impolite-word": "^0.0.2",
