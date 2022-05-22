@@ -6,6 +6,7 @@ export default defineBuildConfig({
     './src/vite',
     './src/rollup',
     './src/esbuild',
+    './src/webpack',
   ],
   declaration: true,
   clean: true,

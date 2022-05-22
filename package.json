@@ -63,7 +63,8 @@
   "peerDependencies": {
     "esbuild": "*",
     "rollup": "*",
-    "vite": "*"
+    "vite": "*",
+    "webpack": "*"
   },
   "dependencies": {
     "impolite-word": "^0.0.2",
@@ -73,13 +74,13 @@
   },
   "devDependencies": {
     "@suger-tdy/eslint-config": "^1.1.0",
-    "@types/webpack": "^5.28.0",
     "bumpp": "^7.1.1",
     "eslint": "^8.16.0",
     "install": "^0.13.0",
     "typescript": "^4.6.4",
     "unbuild": "^0.7.4",
     "vite": "^2.9.9",
-    "vitest": "^0.9.4"
+    "vitest": "^0.9.4",
+    "webpack": "^5.72.1"
   }
 }
