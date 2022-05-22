@@ -67,6 +67,7 @@
     "webpack": "*"
   },
   "dependencies": {
+    "fast-glob": "^3.2.11",
     "impolite-word": "^0.0.2",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
@@ -75,6 +76,7 @@
   "devDependencies": {
     "@suger-tdy/eslint-config": "^1.1.0",
     "bumpp": "^7.1.1",
+    "esbuild": "^0.14.39",
     "eslint": "^8.16.0",
     "install": "^0.13.0",
     "typescript": "^4.6.4",
