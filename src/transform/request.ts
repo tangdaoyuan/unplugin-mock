@@ -1,7 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'http'
+import type { ResolvedConfig } from 'vite'
+import type { MockHandler } from '@/types'
 
 export const MOCK_DATA_KEY = 'mockReqData'
-let _context = new Map<string, any>([[MOCK_DATA_KEY, []]])
+export const requestContext = new Map<string, MockHandler[]>([[MOCK_DATA_KEY, []]])
 
 export function transformRequest(
   _req: IncomingMessage,
@@ -10,7 +12,7 @@ export function transformRequest(
 ): void {
   // TODO
   // filter url and method from request, mapping to mockData
-  const mockDataList = (_context.get(MOCK_DATA_KEY) || []) as any[]
+  const mockDataList = (requestContext.get(MOCK_DATA_KEY) || [])
   const mockData = mockDataList.find(
     mock => mock.url === _req.url && (mock.method as string).toUpperCase() === _req.method,
   )
@@ -22,8 +24,7 @@ export function transformRequest(
   _next()
 }
 
-export function createTransformRequest(context: Map<string, any>) {
-  _context = context
+export function createTransformRequest(_config?: ResolvedConfig) {
   return (_req: IncomingMessage,
     _res: ServerResponse,
     _next: (err?: any) => void,

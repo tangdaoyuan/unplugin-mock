@@ -2,11 +2,11 @@ import path from 'path'
 import _module from 'node:module'
 import fg from 'fast-glob'
 import { buildSync } from 'esbuild'
-import type { ExposeNodeModule, GeneralOptions } from '../types'
+import type { ExposeNodeModule, GeneralOptions, MockHandler } from '../types'
 
 export function transformConfig(
   _options: GeneralOptions,
-): any[] {
+): MockHandler[] {
   // 1. get mock filepath from options
   const { mockPath } = _options
   if (!mockPath)
