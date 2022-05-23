@@ -3,6 +3,7 @@ import type { IncomingMessage, ServerResponse } from 'http'
 export interface Options {
   verbose?: boolean
   mockPath: string
+  refresh: boolean
 }
 
 export type GeneralOptions = Partial<Options>

@@ -4,6 +4,7 @@ import { defaultOptions } from './options'
 import { transformConfig } from './transform/config'
 import { MOCK_DATA_KEY, createTransformRequest, requestContext } from './transform/request'
 import type { GeneralOptions } from './types'
+import { createWatcher } from './watch'
 
 export default createUnplugin<GeneralOptions>((_options, _meta) => {
   const options = { ...defaultOptions, ..._options }
@@ -22,6 +23,7 @@ export default createUnplugin<GeneralOptions>((_options, _meta) => {
         // watchFiles change
       },
       configureServer(server) {
+        createWatcher(options, server)
         server.middlewares.use(createTransformRequest(config))
       },
     },
