@@ -28,16 +28,6 @@
       "require": "./dist/vite.cjs",
       "import": "./dist/vite.mjs",
       "types": "./dist/vite.d.ts"
-    },
-    "./rollup": {
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.mjs",
-      "types": "./dist/rollup.d.ts"
-    },
-    "./esbuild": {
-      "require": "./dist/esbuild.cjs",
-      "import": "./dist/esbuild.mjs",
-      "types": "./dist/esbuild.d.ts"
     }
   },
   "files": [
