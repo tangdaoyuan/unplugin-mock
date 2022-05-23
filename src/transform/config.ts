@@ -12,7 +12,6 @@ export function transformConfig(
   if (!mockPath)
     return []
 
-  // TODO
   // get absolute path
   const mockFiles = fg.sync(`${mockPath}/**/*.ts`)
 
@@ -29,11 +28,8 @@ export function transformConfig(
     return mod.exports.default || []
   })
 
+  // 4. return config
   return mockReqData
-
-  // TODO
-  // 4. watch files change
-  // 5. return config
 }
 
 export function buildCjsFile(filePath: string) {

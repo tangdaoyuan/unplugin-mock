@@ -11,7 +11,9 @@ export default defineConfig({
     VitePluginReload({
       includes: ['../src/**/*.{ts,tsx}'],
     }),
-    vitePlugin(),
+    vitePlugin({
+      mockPath: path.resolve(__dirname, '../fixture/mock'),
+    }),
   ],
   resolve: {
     alias: {
