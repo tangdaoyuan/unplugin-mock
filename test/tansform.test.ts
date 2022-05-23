@@ -1,68 +1,71 @@
-import { describe, expect, it } from 'vitest'
+import path from 'path'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { buildCjsFile, transformConfig } from '@/transform/config'
+import type { MockHandler } from '@/types'
+import { setMockData, transformRequest } from '@/transform/request'
 
-describe('runs mock config', () => {
+const mockPath = path.resolve(__dirname, './fixture')
+
+describe('runs mock file transform', () => {
   it('works', () => {
     const result = transformConfig({
-      mockPath: './fixture/mock',
+      mockPath,
     })
     expect(result).toBeInstanceOf(Array)
     expect(result.length).toBeGreaterThanOrEqual(1)
   })
   it('generate cjs for single mock file', () => {
     const code = buildCjsFile('./fixture/mock/mock.ts')
-    expect(code).toMatchInlineSnapshot(`
-      "var __defProp = Object.defineProperty;
-      var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-      var __getOwnPropNames = Object.getOwnPropertyNames;
-      var __hasOwnProp = Object.prototype.hasOwnProperty;
-      var __export = (target, all) => {
-        for (var name in all)
-          __defProp(target, name, { get: all[name], enumerable: true });
-      };
-      var __copyProps = (to, from, except, desc) => {
-        if (from && typeof from === \\"object\\" || typeof from === \\"function\\") {
-          for (let key of __getOwnPropNames(from))
-            if (!__hasOwnProp.call(to, key) && key !== except)
-              __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-        }
-        return to;
-      };
-      var __toCommonJS = (mod) => __copyProps(__defProp({}, \\"__esModule\\", { value: true }), mod);
-      
-      // fixture/mock/mock.ts
-      var mock_exports = {};
-      __export(mock_exports, {
-        default: () => mock_default
-      });
-      module.exports = __toCommonJS(mock_exports);
-      var mock_default = [
-        {
-          url: \\"/api/get\\",
-          method: \\"get\\",
-          response: () => {
-            return {
-              code: 0,
-              data: {
-                name: \\"Tedy\\"
-              }
-            };
-          }
-        },
-        {
-          url: \\"/api/post\\",
-          method: \\"post\\",
-          response: {
-            code: 0,
-            data: {
-              name: \\"Tedy\\"
-            }
-          }
-        }
-      ];
-      // Annotate the CommonJS export names for ESM import in node:
-      0 && (module.exports = {});
-      "
+    expect(code).toMatchSnapshot()
+  })
+})
+
+describe('runs mock request transform', () => {
+  let mockList: MockHandler[] = []
+  beforeAll(() => {
+    mockList = transformConfig({
+      mockPath,
+    })
+    setMockData(mockList)
+  })
+
+  it('get json response', () => {
+    const mockData = transformRequest({
+      url: '/api/get',
+      method: 'get',
+    })
+    expect(mockData).toMatchInlineSnapshot(`
+      {
+        "method": "get",
+        "response": [Function],
+        "url": "/api/get",
+      }
+    `)
+  })
+  it('post function response', () => {
+    const mockData = transformRequest({
+      url: '/api/post',
+      method: 'post',
+    })
+    expect(mockData).toMatchInlineSnapshot(`
+      {
+        "method": "post",
+        "response": [Function],
+        "url": "/api/post",
+      }
+    `)
+  })
+  it('patch function response', () => {
+    const mockData = transformRequest({
+      url: '/api/post',
+      method: 'post',
+    })
+    expect(mockData).toMatchInlineSnapshot(`
+      {
+        "method": "post",
+        "response": [Function],
+        "url": "/api/post",
+      }
     `)
   })
 })

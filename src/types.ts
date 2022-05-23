@@ -13,7 +13,7 @@ export interface ExposeNodeModule extends NodeModule {
 
 type MockRespData = Object
 
-type MockRespFunc = (_req: IncomingMessage, _res: ServerResponse,) => void
+type MockRespFunc = (_req: IncomingMessage, _res: ServerResponse) => void
 
 export interface MockHandler {
   url: string
