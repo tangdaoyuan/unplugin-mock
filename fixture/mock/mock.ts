@@ -38,4 +38,17 @@ export default [
       }))
     },
   },
+  {
+    url: '/api/params/:name/:id?',
+    method: 'get',
+    response: (_req, _res) => {
+      _res.writeHead(200, { 'Content-Type': 'application/json' })
+      _res.end(JSON.stringify({
+        code: 0,
+        data: {
+          name: 'Tedy Params Match',
+        },
+      }))
+    },
+  },
 ] as MockHandler[]

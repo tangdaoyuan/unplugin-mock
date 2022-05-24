@@ -1,5 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { ResolvedConfig } from 'vite'
+import { parse } from 'regexparam'
 import type { MockHandler } from '@/types'
 
 export const MOCK_DATA_KEY = 'mockReqData'
@@ -12,10 +13,18 @@ export function setMockData(mockData: MockHandler[]) {
 export function transformRequest(
   req: Pick<IncomingMessage, 'url' | 'method'>,
 ) {
+  // TODO
+  // pick from cache
   // filter url and method from request, mapping to mockData
   const mockDataList = (requestContext.get(MOCK_DATA_KEY) || [])
   const mockData = mockDataList.find(
-    mock => mock.url === req.url && (mock.method as string).toUpperCase() === req.method?.toUpperCase(),
+    (mock) => {
+      const { url, method } = mock
+      const matcher = parse(url)
+
+      return (matcher.pattern.test(req.url || '') || url === req.url)
+        && method.toUpperCase() === req.method?.toUpperCase()
+    },
   )
 
   if (mockData)

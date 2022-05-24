@@ -19,13 +19,13 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, \\"__esModule\\", { value: true }), mod);
 
-// fixture/mock/mock.ts
-var mock_exports = {};
-__export(mock_exports, {
-  default: () => mock_default
+// test/fixture/base.ts
+var base_exports = {};
+__export(base_exports, {
+  default: () => base_default
 });
-module.exports = __toCommonJS(mock_exports);
-var mock_default = [
+module.exports = __toCommonJS(base_exports);
+var base_default = [
   {
     url: \\"/api/get\\",
     method: \\"get\\",
@@ -36,29 +36,6 @@ var mock_default = [
           name: \\"Tedy Get\\"
         }
       };
-    }
-  },
-  {
-    url: \\"/api/post\\",
-    method: \\"post\\",
-    response: {
-      code: 0,
-      data: {
-        name: \\"Tedy Post\\"
-      }
-    }
-  },
-  {
-    url: \\"/api/patch\\",
-    method: \\"patch\\",
-    response: (_req, _res) => {
-      _res.writeHead(200, { \\"Content-Type\\": \\"application/json\\" });
-      _res.end(JSON.stringify({
-        code: 0,
-        data: {
-          name: \\"Tedy Patch\\"
-        }
-      }));
     }
   }
 ];
