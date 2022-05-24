@@ -15,3 +15,4 @@ You can build a local mocker by [DevServer hook](https://webpack.js.org/configur
 - [ ] ignore files options
 - [ ] restful url support
 - [ ] enhance response for function mockHandler
+- [ ] Keep url unique for function mockHandler
