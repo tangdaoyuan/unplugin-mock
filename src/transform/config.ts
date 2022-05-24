@@ -27,8 +27,6 @@ export function transformConfig(
         return false
       }),
     )
-  // eslint-disable-next-line no-console
-  console.log(mockFiles)
 
   // 2. compile mock file to cjs (esm not supported to compiled by source code)
   const mockReqData = mockFiles.flatMap((mockFile) => {

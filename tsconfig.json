@@ -12,12 +12,16 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "paths": {
       "@": [
         "src"
       ],
       "@/*": [
         "src/*"
+      ],
+      "unplugin-mock/*": [
+        "dist/*"
       ]
     }
   },

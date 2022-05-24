@@ -4,6 +4,7 @@ export default defineBuildConfig({
   entries: [
     './src/index',
     './src/vite',
+    './src/types',
     // './src/rollup',
     // './src/esbuild',
     // './src/webpack',

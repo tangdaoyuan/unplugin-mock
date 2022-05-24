@@ -19,19 +19,27 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
+    "./vite": {
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.mjs",
+      "types": "./dist/vite.d.ts"
+    },
+    "./types": {
+      "require": "./dist/types.cjs",
+      "import": "./dist/types.mjs",
+      "types": "./dist/types.d.ts"
+    },
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
-    "./vite": {
-      "require": "./dist/vite.cjs",
-      "import": "./dist/vite.mjs",
-      "types": "./dist/vite.d.ts"
-    }
+    "./*": "./*"
   },
   "files": [
-    "dist"
+    "dist",
+    "*.d.ts",
+    "@types"
   ],
   "scripts": {
     "test": "vitest",
