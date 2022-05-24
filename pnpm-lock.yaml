@@ -10,7 +10,6 @@ importers:
       esbuild: ^0.14.39
       eslint: ^8.16.0
       fast-glob: ^3.2.11
-      impolite-word: ^0.0.2
       install: ^0.13.0
       magic-string: ^0.26.2
       picocolors: ^1.0.0
@@ -24,7 +23,6 @@ importers:
     dependencies:
       chokidar: 3.5.3
       fast-glob: 3.2.11
-      impolite-word: 0.0.2
       magic-string: 0.26.2
       picocolors: 1.0.0
       regexparam: 2.0.0
@@ -1818,6 +1816,7 @@ packages:
       graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
+    dev: true
 
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
@@ -1961,6 +1960,7 @@ packages:
     resolution: {integrity: sha512-4V0F6STdvknLe03N5jMNVLXcjlrfzyUX5A4azea3+P9Q3dYrb2JGOsVX6ijDZIdWU5u+ltLZ4JROpaLVGse9jA==}
     dependencies:
       fs-extra: 10.1.0
+    dev: true
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -2189,6 +2189,7 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
+    dev: true
 
   /jsx-ast-utils/3.3.0:
     resolution: {integrity: sha512-XzO9luP6L0xkxwhIJMTJQpZo/eeN60K08jHdexfD569AGxeNug6UketeHXEhROoM8aR7EcUoOQmIhcJQjcuq8Q==}
@@ -3000,6 +3001,7 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
+    dev: true
 
   /unplugin/0.6.3_vgtkhxhloakhblu4wpqpsqiivu:
     resolution: {integrity: sha512-CoW88FQfCW/yabVc4bLrjikN9HC8dEvMU4O7B6K2jsYMPK0l6iAnd9dpJwqGcmXJKRCU9vwSsy653qg+RK0G6A==}

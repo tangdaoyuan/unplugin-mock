@@ -67,7 +67,6 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "fast-glob": "^3.2.11",
-    "impolite-word": "^0.0.2",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
     "regexparam": "^2.0.0",
