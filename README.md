@@ -1,5 +1,44 @@
 # unplugin-mock
-mock plugin for vite
+> mock plugin for vite
+
+
+## Install
+```bash
+npm i vite-plugin-reload --save-dev
+```
+#
+## Usage
+```ts
+import viteMockerPlugin from 'unplugin-mock/vite'
+
+export default defineConfig({
+  plugins: [
+    // ... etc
+    viteMockerPlugin({
+      mockPath: './mock',
+    }),
+  ],
+  // ...etc
+})
+```
+
+## Options
+
+### includes
+- Path to mock directory
+- Type: `string`
+- Default: `''`
+- Example: `'./mock'`
+
+### ignore
+- Ignore files
+- Type: `string` | `RegExp` | `(RegExp | string)[]` 
+- default: `[]`
+
+### refresh
+- Refresh page when mock file changed
+- Type: `boolean`
+- default: `false`
 
 ## why not support webpack
 
@@ -12,7 +51,8 @@ You can build a local mocker by [DevServer hook](https://webpack.js.org/configur
 
 - [x] the implementation first for vite
 - [x] logger for hmr
-- [x] ignore files options
+- [x] ignore files option
 - [x] restful url support
 - [ ] enhance response for function mockHandler
 - [ ] Keep url unique for function mockHandler
+- [ ] cache handler
