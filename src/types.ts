@@ -4,6 +4,7 @@ export interface Options {
   verbose?: boolean
   mockPath: string
   refresh: boolean
+  ignore: string | RegExp | (string | RegExp)[]
 }
 
 export type GeneralOptions = Partial<Options>

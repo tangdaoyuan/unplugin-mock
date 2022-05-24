@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`runs mock file transform > generate cjs for single mock file 1`] = `
+exports[`runs file transform > generate cjs for single mock file 1`] = `
 "var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -27,13 +27,13 @@ __export(base_exports, {
 module.exports = __toCommonJS(base_exports);
 var base_default = [
   {
-    url: \\"/api/get\\",
+    url: \\"/api/base\\",
     method: \\"get\\",
     response: () => {
       return {
         code: 0,
         data: {
-          name: \\"Tedy Get\\"
+          name: \\"Tedy Base\\"
         }
       };
     }

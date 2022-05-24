@@ -5,19 +5,20 @@ import colors from 'picocolors'
 import { transformConfig } from '../transform/config'
 import { MOCK_DATA_KEY, requestContext } from '../transform/request'
 import logger from '../logger'
+import { getIgnoreMatcher } from '../util'
 import type { Options } from '@/types'
 
-const dotFile = /(^|[\/\\])\../
-
 export function createWatcher(_options: Options, _server: ViteDevServer) {
-  const { mockPath, refresh } = _options
+  const { mockPath, refresh, ignore } = _options
   if (!mockPath)
     return
+
+  const ignoreMatchers = getIgnoreMatcher(ignore)
 
   const absPath = path.resolve(mockPath)
   const watcher = chokidar
     .watch(`${absPath}`, {
-      ignored: dotFile,
+      ignored: ignoreMatchers,
       ignoreInitial: true,
     })
     .on('change', (filePath) => {

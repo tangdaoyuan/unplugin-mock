@@ -4,13 +4,13 @@ import type { MockHandler } from '@/types'
 
 export default [
   {
-    url: '/api/base',
+    url: '/api/ignore',
     method: 'get',
     response: () => {
       return {
-        code: 0,
+        code: 1,
         data: {
-          name: 'Tedy Base',
+          name: 'Tedy Ignore Me Plz',
         },
       }
     },

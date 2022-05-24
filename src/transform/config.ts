@@ -2,18 +2,33 @@ import path from 'path'
 import _module from 'node:module'
 import fg from 'fast-glob'
 import { buildSync } from 'esbuild'
-import type { ExposeNodeModule, GeneralOptions, MockHandler } from '../types'
+import type { ExposeNodeModule, MockHandler, Options } from '../types'
+import { getIgnoreMatcher } from '../util'
 
 export function transformConfig(
-  _options: GeneralOptions,
+  _options: Options,
 ): MockHandler[] {
   // 1. get mock filepath from options
-  const { mockPath } = _options
+  const { mockPath, ignore } = _options
   if (!mockPath)
     return []
 
+  const ignoreMatcher = getIgnoreMatcher(ignore)
+
   // get absolute path
-  const mockFiles = fg.sync(`${mockPath}/**/*.ts`)
+  const mockFiles = fg
+    .sync(`${mockPath}/**/*.ts`, {
+      ignore: ignoreMatcher.filter(i => typeof i === 'string') as string[],
+    })
+    .filter(mockFile =>
+      !ignoreMatcher.some((matcher) => {
+        if (matcher instanceof RegExp)
+          (matcher as RegExp)?.test(mockFile)
+        return false
+      }),
+    )
+  // eslint-disable-next-line no-console
+  console.log(mockFiles)
 
   // 2. compile mock file to cjs (esm not supported to compiled by source code)
   const mockReqData = mockFiles.flatMap((mockFile) => {

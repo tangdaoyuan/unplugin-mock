@@ -13,6 +13,7 @@ export default defineConfig({
     }),
     vitePlugin({
       mockPath: path.resolve(__dirname, '../fixture/mock'),
+      ignore: ['**/ignore.ts'],
     }),
   ],
   resolve: {

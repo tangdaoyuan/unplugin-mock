@@ -6,14 +6,26 @@ import { setMockData, transformRequest } from '@/transform/request'
 
 const mockPath = fileURLToPath(new URL('./fixture', import.meta.url))
 
-describe('runs mock file transform', () => {
+const pluginOptions = {
+  mockPath,
+  refresh: false,
+  ignore: [],
+}
+
+describe('runs detect', () => {
   it('works', () => {
-    const result = transformConfig({
-      mockPath,
-    })
+    const result = transformConfig(pluginOptions)
     expect(result).toBeInstanceOf(Array)
     expect(result.length).toBeGreaterThanOrEqual(1)
   })
+
+  it('ignore file', () => {
+    const result = transformConfig({ ...pluginOptions, ignore: ['**/ignore.ts'] })
+    expect(result.some(r => r.url === '/api/ignore')).toBe(false)
+  })
+})
+
+describe('runs file transform', () => {
   it('generate cjs for single mock file', () => {
     const code = buildCjsFile(fileURLToPath(new URL('./fixture/base.ts', import.meta.url)))
     expect(code).toMatchSnapshot()
@@ -23,9 +35,7 @@ describe('runs mock file transform', () => {
 describe('runs mock request transform', () => {
   let mockList: MockHandler[] = []
   beforeAll(() => {
-    mockList = transformConfig({
-      mockPath,
-    })
+    mockList = transformConfig(pluginOptions)
     setMockData(mockList)
   })
 

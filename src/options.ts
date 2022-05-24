@@ -4,4 +4,5 @@ export const defaultOptions: Options = {
   verbose: false,
   mockPath: '',
   refresh: false,
+  ignore: [],
 }
