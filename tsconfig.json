@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es2017",
     "module": "esnext",
     "lib": [
@@ -13,10 +14,10 @@
     "skipDefaultLibCheck": true,
     "paths": {
       "@": [
-        "./src"
+        "src"
       ],
       "@/*": [
-        "./src/*"
+        "src/*"
       ]
     }
   },

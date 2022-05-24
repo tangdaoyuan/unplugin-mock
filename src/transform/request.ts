@@ -1,6 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { ResolvedConfig } from 'vite'
 import { parse } from 'regexparam'
+import colors from 'picocolors'
+import logger from '../logger'
 import type { MockHandler } from '@/types'
 
 export const MOCK_DATA_KEY = 'mockReqData'
@@ -60,7 +62,9 @@ export function createTransformRequest(_config?: ResolvedConfig) {
   ) => {
     const handler = transformRequest(_req)
     if (handler) {
-      (handler.response as Function)(_req, _res)
+      const msg = `${colors.green('request hit')} ${colors.dim(_req.url)}`
+      logger.info(msg)
+      ;(handler.response as Function)(_req, _res)
       return
     }
     _next()

@@ -1,8 +1,10 @@
 import path from 'path'
 import chokidar from 'chokidar'
 import type { ViteDevServer } from 'vite'
+import colors from 'picocolors'
 import { transformConfig } from '../transform/config'
 import { MOCK_DATA_KEY, requestContext } from '../transform/request'
+import logger from '../logger'
 import type { Options } from '@/types'
 
 const dotFile = /(^|[\/\\])\../
@@ -19,8 +21,7 @@ export function createWatcher(_options: Options, _server: ViteDevServer) {
       ignoreInitial: true,
     })
     .on('change', (filePath) => {
-      // eslint-disable-next-line no-console
-      console.log(`[vite:un-mock] ${filePath} changed`)
+      logger.info(`${colors.dim(filePath)} ${colors.green('changed')}`)
       const mockReqData = transformConfig(_options)
       requestContext.set(MOCK_DATA_KEY, mockReqData)
 
@@ -30,9 +31,9 @@ export function createWatcher(_options: Options, _server: ViteDevServer) {
 
   const originalClose = _server.close
   _server.close = async() => {
-    // eslint-disable-next-line no-console
-    console.log('[vite:un-mock] close')
+    logger.info(colors.green('closing watcher...'))
     await watcher.close()
+    logger.info('watcher closed')
     await originalClose()
   }
 }
