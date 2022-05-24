@@ -13,14 +13,12 @@ export default createUnplugin<GeneralOptions>((_options, _meta) => {
   return {
     name: 'unplugin-mock',
     vite: {
+      apply: 'serve',
       configResolved(_config) {
         config = _config
         // init local mock server from config
         const mockReqData = transformConfig(options)
         requestContext.set(MOCK_DATA_KEY, mockReqData)
-
-        // TODO
-        // watchFiles change
       },
       configureServer(server) {
         createWatcher(options, server)
