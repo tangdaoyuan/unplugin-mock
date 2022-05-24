@@ -17,7 +17,7 @@ export function transformConfig(
 
   // get absolute path
   const mockFiles = fg
-    .sync(`${mockPath}/**/*.ts`, {
+    .sync(`${mockPath}/**/*`, {
       ignore: ignoreMatcher.filter(i => typeof i === 'string') as string[],
     })
     .filter(mockFile =>
