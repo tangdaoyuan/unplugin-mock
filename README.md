@@ -12,7 +12,7 @@ You can build a local mocker by [DevServer hook](https://webpack.js.org/configur
 
 - [x] the implementation first for vite
 - [x] logger for hmr
-- [ ] ignore files options
+- [x] ignore files options
 - [x] restful url support
 - [ ] enhance response for function mockHandler
 - [ ] Keep url unique for function mockHandler
