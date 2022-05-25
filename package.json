@@ -20,9 +20,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     "./vite": {
-      "require": "./dist/vite.cjs",
-      "import": "./dist/vite.mjs",
-      "types": "./dist/vite.d.ts"
+      "require": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.cjs"
+      },
+      "import": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.mjs"
+      }
     },
     "./types": {
       "require": "./dist/types.cjs",

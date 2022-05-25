@@ -46,6 +46,8 @@ Mock Service in webpack is not suitable for plugin implementation, because it is
 
 You can build a local mocker by [DevServer hook](https://webpack.js.org/configuration/dev-server/) or pick some readily available libs for devServer, suck as [mocker-api](https://github.com/jaywcjlove/mocker-api)
 
+## Notice
+`vite.d.ts` and `types.d.ts` will be removed in the future, please use `typescript >= 4.7.2` instead.
 
 ## TODO
 
