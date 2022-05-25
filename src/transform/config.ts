@@ -2,12 +2,12 @@ import path from 'path'
 import _module from 'node:module'
 import fg from 'fast-glob'
 import { buildSync } from 'esbuild'
-import type { ExposeNodeModule, MockHandler, Options } from '../types'
+import type { ExposeNodeModule, MockHandler, ModuleMockHandler, Options } from '../types'
 import { getIgnoreMatcher } from '../util'
 
 export function transformConfig(
   _options: Options,
-): MockHandler[] {
+): ModuleMockHandler[] {
   // 1. get mock filepath from options
   const { mockPath, ignore } = _options
   if (!mockPath)
@@ -15,7 +15,6 @@ export function transformConfig(
 
   const ignoreMatcher = getIgnoreMatcher(ignore)
 
-  // get absolute path
   const mockFiles = fg
     .sync(`${mockPath}/**/*`, {
       ignore: ignoreMatcher.filter(i => typeof i === 'string') as string[],
@@ -38,7 +37,10 @@ export function transformConfig(
     mod.filename = mockFile
     mod._compile(rawCjsCode, mockFile)
 
-    return mod.exports.default || []
+    return (mod.exports.default || [])
+      .map((mock: MockHandler) =>
+        ({ ...mock, _file: mockFilePath }),
+      )
   })
 
   // 4. return config

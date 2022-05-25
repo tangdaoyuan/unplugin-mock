@@ -22,3 +22,7 @@ export interface MockHandler {
   method: string
   response: MockRespData | MockRespFunc
 }
+
+export interface ModuleMockHandler extends MockHandler {
+  _file: string
+}

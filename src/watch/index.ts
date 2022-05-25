@@ -3,7 +3,7 @@ import chokidar from 'chokidar'
 import type { ViteDevServer } from 'vite'
 import colors from 'picocolors'
 import { transformConfig } from '../transform/config'
-import { MOCK_DATA_KEY, requestContext } from '../transform/request'
+import { setMockHandlerContext } from '../transform/request'
 import logger from '../logger'
 import { getIgnoreMatcher } from '../util'
 import type { Options } from '@/types'
@@ -24,7 +24,7 @@ export function createWatcher(_options: Options, _server: ViteDevServer) {
     .on('change', (filePath) => {
       logger.info(`${colors.dim(filePath)} ${colors.green('changed')}`)
       const mockReqData = transformConfig(_options)
-      requestContext.set(MOCK_DATA_KEY, mockReqData)
+      setMockHandlerContext(mockReqData)
 
       if (refresh)
         _server.ws.send({ type: 'full-reload' })

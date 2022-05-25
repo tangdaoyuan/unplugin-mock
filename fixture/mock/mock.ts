@@ -16,6 +16,18 @@ export default [
     },
   },
   {
+    url: '/api/:source',
+    method: 'get',
+    response: () => {
+      return {
+        code: 0,
+        data: {
+          name: 'Tedy Get',
+        },
+      }
+    },
+  },
+  {
     url: '/api/post',
     method: 'post',
     response: {

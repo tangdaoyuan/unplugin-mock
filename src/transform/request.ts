@@ -3,14 +3,13 @@ import type { ResolvedConfig } from 'vite'
 import { parse } from 'regexparam'
 import colors from 'picocolors'
 import logger from '../logger'
-import type { MockHandler } from '@/types'
+import type { ModuleMockHandler } from '@/types'
 
-export const MOCK_DATA_KEY = 'mockReqData'
-export const requestContext = new Map<string, MockHandler[]>([[MOCK_DATA_KEY, []]])
+export const QUICK_MOCK_DATA_KEY = 'quickReqData'
+export const REGEX_MOCK_DATA_KEY = 'restReqData'
 
-export function setMockData(mockData: MockHandler[]) {
-  requestContext.set(MOCK_DATA_KEY, mockData)
-}
+const quickHandlerContext = new Map<string, ModuleMockHandler>()
+const regexHandlerContext = new Array<ModuleMockHandler>()
 
 export function transformRequest(
   req: Pick<IncomingMessage, 'url' | 'method'>,
@@ -18,16 +17,7 @@ export function transformRequest(
   // TODO
   // pick from cache
   // filter url and method from request, mapping to mockData
-  const mockDataList = (requestContext.get(MOCK_DATA_KEY) || [])
-  const mockData = mockDataList.find(
-    (mock) => {
-      const { url, method } = mock
-      const matcher = parse(url)
-
-      return (matcher.pattern.test(req.url || '') || url === req.url)
-        && method.toUpperCase() === req.method?.toUpperCase()
-    },
-  )
+  const mockData = getMockHandler(req.url, req.method)
 
   if (mockData)
     wrapperHandler(mockData)
@@ -35,7 +25,7 @@ export function transformRequest(
   return mockData
 }
 
-function wrapperHandler(handler: MockHandler) {
+function wrapperHandler(handler: ModuleMockHandler) {
   const { response } = handler
   if (typeof response === 'object') {
     const originalRespData = response as Object
@@ -69,6 +59,61 @@ export function createTransformRequest(_config?: ResolvedConfig) {
     }
     _next()
   }
+}
+
+export function getMockHandler(url?: string, method?: string) {
+  if (!url || !method)
+    return null
+
+  const handler = quickHandlerContext.get(`${method} ${url}`)
+  if (handler)
+    return handler
+
+  for (const handler of regexHandlerContext) {
+    const { url: _url, method: _method } = handler
+    const matcher = parse(_url)
+    if ((matcher.pattern.test(url) || handler.url === url)
+      && _method.toUpperCase() === method.toUpperCase()
+    )
+      return handler
+  }
+  return null
+}
+
+export function setMockHandlerContext(values: ModuleMockHandler[], reset = true) {
+  const logConflict = (source: ModuleMockHandler, target: ModuleMockHandler) => {
+    logger.warn(`${colors.yellow('handler conflict as follows:')}
+      ${colors.dim(colors.green(`${source.method.toUpperCase()} ${source.url}`))} ${colors.yellow(source._file)}
+      ${colors.dim(colors.green(`${target.method.toUpperCase()} ${target.url}`))} ${colors.yellow(target._file)}`)
+  }
+
+  if (reset) {
+    regexHandlerContext.splice(0, regexHandlerContext.length)
+    quickHandlerContext.clear()
+  }
+
+  // restful priority > quick priority
+  values
+    .filter(handler => parse(handler.url).keys.length)
+    .forEach((handler) => {
+      const h = getMockHandler(handler.url, handler.method)
+      if (h) {
+        logConflict(handler, h)
+        return
+      }
+      regexHandlerContext.push(handler)
+    })
+  values
+    .filter(handler => !parse(handler.url).keys.length)
+    .forEach((handler) => {
+      const h = getMockHandler(handler.url, handler.method)
+      if (h) {
+        logConflict(handler, h)
+        return
+      }
+      const key = `${handler.method} ${handler.url}`
+      quickHandlerContext.set(key, handler)
+    })
 }
 
 function outputJson(_req: IncomingMessage, res: ServerResponse, data: Object) {
