@@ -98,21 +98,6 @@ describe('runs set/get handler', () => {
     }])
     expect($consoleLog).toBeCalledTimes(1)
   })
-  it('mix context conflict2', () => {
-    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
-    setMockHandlerContext([{
-      url: '/api/get',
-      method: 'GET',
-      response: {},
-      _file: '_local_regex_mock_file_',
-    }, {
-      url: '/api/:source',
-      method: 'GET',
-      response: {},
-      _file: '_local_simple_mock_file_',
-    }])
-    expect($consoleLog).toBeCalledTimes(1)
-  })
 })
 
 describe('runs mock request transform', () => {
