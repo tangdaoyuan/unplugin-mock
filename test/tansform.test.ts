@@ -98,6 +98,22 @@ describe('runs set/get handler', () => {
     }])
     expect($consoleLog).toBeCalledTimes(1)
   })
+  it('method case ignore', () => {
+    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
+    setMockHandlerContext([{
+      url: '/api/test/:id',
+      method: 'GET',
+      response: {},
+      _file: '_local_regex_mock_file_',
+    }, {
+      url: '/api/test/info',
+      method: 'get',
+      response: {},
+      _file: '_local_simple_mock_file_',
+    }])
+    expect($consoleLog).toBeCalledTimes(1)
+    expect(getMockHandler('/api/test/info', 'GET')).not.toBeNull()
+  })
 })
 
 describe('runs mock request transform', () => {

@@ -65,7 +65,7 @@ export function getMockHandler(url?: string, method?: string) {
   if (!url || !method)
     return null
 
-  const handler = quickHandlerContext.get(`${method} ${url}`)
+  const handler = quickHandlerContext.get(`${method.toLowerCase()} ${url}`)
   if (handler)
     return handler
 
@@ -73,7 +73,7 @@ export function getMockHandler(url?: string, method?: string) {
     const { url: _url, method: _method } = handler
     const matcher = parse(_url)
     if ((matcher.pattern.test(url) || handler.url === url)
-      && _method.toUpperCase() === method.toUpperCase()
+      && _method.toLowerCase() === method.toLowerCase()
     )
       return handler
   }
@@ -111,7 +111,7 @@ export function setMockHandlerContext(values: ModuleMockHandler[], reset = true)
         logConflict(handler, h)
         return
       }
-      const key = `${handler.method} ${handler.url}`
+      const key = `${handler.method.toLowerCase()} ${handler.url}`
       quickHandlerContext.set(key, handler)
     })
 }
