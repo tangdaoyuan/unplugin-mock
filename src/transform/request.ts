@@ -3,7 +3,7 @@ import type { ResolvedConfig } from 'vite'
 import { parse } from 'regexparam'
 import colors from 'picocolors'
 import logger from '../logger'
-import type { ModuleMockHandler } from '@/types'
+import type { MockRespFunc, ModuleMockHandler } from '@/types'
 
 export const QUICK_MOCK_DATA_KEY = 'quickReqData'
 export const REGEX_MOCK_DATA_KEY = 'restReqData'
@@ -25,6 +25,8 @@ export function transformRequest(
   return mockData
 }
 
+export type ResponseHandler = (_req: IncomingMessage, _res: ServerResponse) => (Object | void) | Promise<Object | void>
+
 function wrapperHandler(handler: ModuleMockHandler) {
   const { response } = handler
   if (typeof response === 'object') {
@@ -32,11 +34,11 @@ function wrapperHandler(handler: ModuleMockHandler) {
     handler.response = (_req, _res) => outputJson(_req, _res, originalRespData)
   }
   if (typeof response === 'function') {
-    const originalRespFunc = response as (_req: unknown, _res: unknown) => Object
-    handler.response = (_req, _res) => {
+    const originalRespFunc = response as MockRespFunc
+    handler.response = async(_req, _res) => {
       // TODO
       // enhance _req, _res for mock
-      const result = originalRespFunc(_req, _res)
+      const result = await originalRespFunc(_req, _res)
       if (result)
         outputJson(_req, _res, result)
     }
@@ -46,7 +48,7 @@ function wrapperHandler(handler: ModuleMockHandler) {
 }
 
 export function createTransformRequest(_config?: ResolvedConfig) {
-  return (_req: IncomingMessage,
+  return async(_req: IncomingMessage,
     _res: ServerResponse,
     _next: (err?: any) => void,
   ) => {
@@ -54,7 +56,12 @@ export function createTransformRequest(_config?: ResolvedConfig) {
     if (handler) {
       const msg = `${colors.green('request hit')} ${colors.dim(_req.url)}`
       logger.info(msg)
-      ;(handler.response as Function)(_req, _res)
+      try {
+        await (handler.response as Function)(_req, _res)
+      }
+      catch (error) {
+        logger.error(colors.red((error as any).message))
+      }
       return
     }
     _next()

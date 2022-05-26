@@ -13,9 +13,9 @@ export interface ExposeNodeModule extends NodeModule {
   _compile: (rawCode: string, fileName: string) => void
 }
 
-type MockRespData = Object
+export type MockRespData = Object
 
-type MockRespFunc = (_req: IncomingMessage, _res: ServerResponse) => void
+export type MockRespFunc = ((_req: IncomingMessage, _res: ServerResponse) => void) | ((_req: IncomingMessage, _res: ServerResponse) => Promise<Object | void>)
 
 export interface MockHandler {
   url: string

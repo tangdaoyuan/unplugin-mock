@@ -1,8 +1,10 @@
 import { fileURLToPath } from 'url'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import type { IncomingMessage, ServerResponse } from 'http'
+import type { SpyInstance } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { buildCjsFile, transformConfig } from '@/transform/config'
 import { getMockHandler, setMockHandlerContext, transformRequest } from '@/transform/request'
-import type { ModuleMockHandler } from '@/types'
+import type { MockRespFunc, ModuleMockHandler } from '@/types'
 
 const mockPath = fileURLToPath(new URL('./fixture', import.meta.url))
 
@@ -33,6 +35,16 @@ describe('runs file transform', () => {
 })
 
 describe('runs set/get handler', () => {
+  let $consoleLog: SpyInstance | null = null
+  beforeEach(() => {
+    $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
+  })
+  afterEach(() => {
+    if ($consoleLog) {
+      $consoleLog.mockRestore()
+      $consoleLog = null
+    }
+  })
   it('simple context works', () => {
     setMockHandlerContext([{
       url: '/api/test',
@@ -54,7 +66,6 @@ describe('runs set/get handler', () => {
     expect(mockData).not.toBeNull()
   })
   it('simple context conflict', () => {
-    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
     setMockHandlerContext([{
       url: '/api/test',
       method: 'GET',
@@ -69,7 +80,6 @@ describe('runs set/get handler', () => {
     expect($consoleLog).toBeCalledTimes(1)
   })
   it('regex context conflict', () => {
-    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
     setMockHandlerContext([{
       url: '/api/test/:id',
       method: 'GET',
@@ -84,7 +94,6 @@ describe('runs set/get handler', () => {
     expect($consoleLog).toBeCalledTimes(1)
   })
   it('mix context conflict', () => {
-    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
     setMockHandlerContext([{
       url: '/api/test/:id',
       method: 'GET',
@@ -99,7 +108,6 @@ describe('runs set/get handler', () => {
     expect($consoleLog).toBeCalledTimes(1)
   })
   it('method case ignore', () => {
-    const $consoleLog = vi.spyOn(console, 'log').mockImplementation(() => undefined)
     setMockHandlerContext([{
       url: '/api/test/:id',
       method: 'GET',
@@ -121,6 +129,9 @@ describe('runs mock request transform', () => {
   beforeAll(() => {
     mockList = transformConfig(pluginOptions)
     setMockHandlerContext(mockList)
+  })
+  afterAll(() => {
+    setMockHandlerContext([])
   })
 
   it('get json response', () => {
@@ -183,5 +194,27 @@ describe('runs mock request transform', () => {
         "url": "/api/params/:name/:id?",
       }
     `)
+  })
+  it('promise response', async() => {
+    vi.useFakeTimers()
+    const mockData = transformRequest({
+      url: '/api/promise',
+      method: 'get',
+    })
+    expect(mockData).not.toBeNull()
+
+    const _req = {
+      writeHead: vi.fn(),
+      end: vi.fn(),
+    } as unknown as IncomingMessage
+    const _res = {
+      writeHead: vi.fn(),
+      end: vi.fn(),
+    } as unknown as ServerResponse
+
+    const result = (mockData!.response as MockRespFunc)(_req, _res)
+    expect(result).toBeInstanceOf(Promise)
+    expect(result).resolves.toBeDefined()
+    vi.useRealTimers()
   })
 })
