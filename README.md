@@ -24,7 +24,12 @@ export default defineConfig({
 
 ## Options
 
-### includes
+### enable
+- Enable mock plugin
+- Type: `boolean`
+- Default: `true`
+
+### mockPath
 - Path to mock directory
 - Type: `string`
 - Default: `''`
