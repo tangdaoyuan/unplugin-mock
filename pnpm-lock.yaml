@@ -10,7 +10,6 @@ importers:
       esbuild: ^0.14.39
       eslint: ^8.16.0
       fast-glob: ^3.2.11
-      install: ^0.13.0
       magic-string: ^0.26.2
       picocolors: ^1.0.0
       regexparam: ^2.0.0
@@ -32,7 +31,6 @@ importers:
       bumpp: registry.npmmirror.com/bumpp/7.1.1
       esbuild: 0.14.39
       eslint: 8.16.0
-      install: 0.13.0
       typescript: 4.7.2
       unbuild: registry.npmmirror.com/unbuild/0.7.4
       vite: 2.9.9
@@ -1989,11 +1987,6 @@ packages:
 
   /inherits/2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
-    dev: true
-
-  /install/0.13.0:
-    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
-    engines: {node: '>= 0.10'}
     dev: true
 
   /internal-slot/1.0.3:
