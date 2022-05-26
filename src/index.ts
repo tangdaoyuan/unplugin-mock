@@ -10,6 +10,9 @@ export default createUnplugin<GeneralOptions>((_options, _meta) => {
   const options = { ...defaultOptions, ..._options }
   let config: ResolvedConfig | undefined
 
+  if (!options.enable)
+    return { name: 'unplugin-mock' }
+
   return {
     name: 'unplugin-mock',
     vite: {

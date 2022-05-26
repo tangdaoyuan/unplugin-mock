@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'http'
 
 export interface Options {
   verbose?: boolean
+  enable: boolean
   mockPath: string
   refresh: boolean
   ignore: string | RegExp | (string | RegExp)[]

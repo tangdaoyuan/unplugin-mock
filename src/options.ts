@@ -5,4 +5,5 @@ export const defaultOptions: Options = {
   mockPath: '',
   refresh: false,
   ignore: [],
+  enable: true,
 }
