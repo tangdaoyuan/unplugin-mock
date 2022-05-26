@@ -12,6 +12,7 @@ const pluginOptions = {
   mockPath,
   refresh: false,
   ignore: [],
+  enable: true,
 }
 
 describe('runs detect', () => {
