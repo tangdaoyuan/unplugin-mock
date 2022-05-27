@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url'
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { SpyInstance } from 'vitest'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { buildCjsFile, transformConfig } from '@/transform/config'
+import { transformConfig } from '@/transform/config'
 import { getMockHandler, setMockHandlerContext, transformRequest } from '@/transform/request'
 import type { MockRespFunc, ModuleMockHandler } from '@/types'
 
@@ -25,13 +25,6 @@ describe('runs detect', () => {
   it('ignore file', () => {
     const result = transformConfig({ ...pluginOptions, ignore: ['**/ignore.ts'] })
     expect(result.some(r => r.url === '/api/ignore')).toBe(false)
-  })
-})
-
-describe('runs file transform', () => {
-  it('generate cjs for single mock file', () => {
-    const code = buildCjsFile(fileURLToPath(new URL('./fixture/base.ts', import.meta.url)))
-    expect(code).toMatchSnapshot()
   })
 })
 

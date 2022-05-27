@@ -10,6 +10,7 @@ importers:
       esbuild: ^0.14.39
       eslint: ^8.16.0
       fast-glob: ^3.2.11
+      import-module-runtime: ^0.1.0
       magic-string: ^0.26.2
       picocolors: ^1.0.0
       regexparam: ^2.0.0
@@ -22,6 +23,7 @@ importers:
     dependencies:
       chokidar: 3.5.3
       fast-glob: 3.2.11
+      import-module-runtime: 0.1.0_esbuild@0.14.39
       magic-string: 0.26.2
       picocolors: 1.0.0
       regexparam: 2.0.0
@@ -1967,6 +1969,14 @@ packages:
       parent-module: 1.0.1
       resolve-from: 4.0.0
     dev: true
+
+  /import-module-runtime/0.1.0_esbuild@0.14.39:
+    resolution: {integrity: sha512-gd5YZwiZBEqohOxZU0LyJbMsaa2E1UdaYU3Pby1WHS+4WC55MfXH/CVbe8lNAm869Q/dOWVBf4Dl5FKikiRu1w==}
+    peerDependencies:
+      esbuild: '*'
+    dependencies:
+      esbuild: 0.14.39
+    dev: false
 
   /imurmurhash/0.1.4:
     resolution: {integrity: sha1-khi5srkoojixPcT7a21XbyMUU+o=}

@@ -66,12 +66,12 @@
   "peerDependencies": {
     "esbuild": "*",
     "rollup": "*",
-    "vite": "*",
-    "webpack": "*"
+    "vite": "*"
   },
   "dependencies": {
     "chokidar": "^3.5.3",
     "fast-glob": "^3.2.11",
+    "import-module-runtime": "^0.1.0",
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
     "regexparam": "^2.0.0",
@@ -85,7 +85,6 @@
     "typescript": "^4.7.2",
     "unbuild": "^0.7.4",
     "vite": "^2.9.9",
-    "vitest": "^0.9.4",
-    "webpack": "^5.72.1"
+    "vitest": "^0.9.4"
   }
 }

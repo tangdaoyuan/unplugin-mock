@@ -7,7 +7,6 @@ export default defineBuildConfig({
     './src/types',
     // './src/rollup',
     // './src/esbuild',
-    // './src/webpack',
   ],
   declaration: true,
   clean: true,
