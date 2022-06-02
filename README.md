@@ -62,6 +62,6 @@ You can build a local mocker by [DevServer hook](https://webpack.js.org/configur
 - [x] restful url support
 - [x] Keep url unique for module handler
 - [x] cache handler
-- [ ] enhance response for function mockHandler
+- [x] enhance response for function mockHandler
 - [ ] cache source code
 - [ ] analyze source code for avoiding duplicate mock import
