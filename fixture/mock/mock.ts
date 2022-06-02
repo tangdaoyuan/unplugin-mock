@@ -29,26 +29,21 @@ export default [
     url: '/api/patch',
     method: 'patch',
     response: (_req, _res) => {
-      _res.writeHead(200, { 'Content-Type': 'application/json' })
-      _res.end(JSON.stringify({
-        code: 0,
-        data: {
-          name: 'Tedy Patch',
-        },
-      }))
+      return {
+        name: 'Tedy Patch',
+      }
     },
   },
   {
     url: '/api/params/:name/:id?',
     method: 'get',
     response: (_req, _res) => {
-      _res.writeHead(200, { 'Content-Type': 'application/json' })
-      _res.end(JSON.stringify({
+      _res.body = {
         code: 0,
         data: {
           name: 'Tedy Params Match',
         },
-      }))
+      }
     },
   },
 ] as MockHandler[]

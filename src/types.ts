@@ -1,4 +1,4 @@
-import type { IncomingMessage, ServerResponse } from 'http'
+import type { Context, Request, Response } from 'http-api-utils'
 
 export interface Options {
   verbose?: boolean
@@ -16,7 +16,9 @@ export interface ExposeNodeModule extends NodeModule {
 
 export type MockRespData = Object
 
-export type MockRespFunc = ((_req: IncomingMessage, _res: ServerResponse) => void) | ((_req: IncomingMessage, _res: ServerResponse) => Promise<Object | void>)
+export type MockRespFunc =
+((_req: Request, _res: Response, context: Context) => void) |
+((_req: Request, _res: Response, context: Context) => Promise<Object | void>)
 
 export interface MockHandler {
   url: string

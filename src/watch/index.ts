@@ -3,9 +3,9 @@ import chokidar from 'chokidar'
 import type { ViteDevServer } from 'vite'
 import colors from 'picocolors'
 import { transformConfig } from '../transform/config'
-import { setMockHandlerContext } from '../transform/request'
 import logger from '../logger'
 import { getIgnoreMatcher } from '../util'
+import { setMockHandlerContext } from '../transform/context'
 import type { Options } from '@/types'
 
 export function createWatcher(_options: Options, _server: ViteDevServer) {

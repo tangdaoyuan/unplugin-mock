@@ -1,10 +1,11 @@
 import { fileURLToPath } from 'url'
-import type { IncomingMessage, ServerResponse } from 'http'
 import type { SpyInstance } from 'vitest'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { Context, Request, Response } from 'http-api-utils'
 import { transformConfig } from '@/transform/config'
-import { getMockHandler, setMockHandlerContext, transformRequest } from '@/transform/request'
+import { getMockHandler, setMockHandlerContext } from '@/transform/context'
 import type { MockRespFunc, ModuleMockHandler } from '@/types'
+import { transformRequest } from '@/transform/request'
 
 const mockPath = fileURLToPath(new URL('./fixture', import.meta.url))
 
@@ -169,16 +170,14 @@ describe('runs mock request transform', () => {
     })
     expect(mockData).not.toBeNull()
 
-    const _req = {
-      writeHead: vi.fn(),
-      end: vi.fn(),
-    } as unknown as IncomingMessage
+    const _req = {} as unknown as Request
     const _res = {
-      writeHead: vi.fn(),
       end: vi.fn(),
-    } as unknown as ServerResponse
+    } as unknown as Response
 
-    const result = (mockData!.response as MockRespFunc)(_req, _res)
+    const _ctx = {} as unknown as Context
+
+    const result = (mockData!.response as MockRespFunc)(_req, _res, _ctx)
     expect(result).toBeInstanceOf(Promise)
     expect(result).resolves.toBeDefined()
     vi.useRealTimers()
