@@ -1,6 +1,6 @@
 {
   "name": "unplugin-mock",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "packageManager": "pnpm@7.1.1",
   "description": "keep polite by plugin",
   "keywords": [
