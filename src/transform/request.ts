@@ -10,9 +10,10 @@ export const QUICK_MOCK_DATA_KEY = 'quickReqData'
 export const REGEX_MOCK_DATA_KEY = 'restReqData'
 
 export function transformRequest(
-  req: Pick<IncomingMessage, 'url' | 'method'>,
+  req: Partial<IncomingMessage>,
 ) {
-  const mockData = getMockHandler(req.url, req.method)
+  const _url = new URL(req.url || '', `http://${req.headers?.host || 'localhost'}`)
+  const mockData = getMockHandler(_url.pathname, req.method)
 
   if (mockData)
     wrapperHandler(mockData)

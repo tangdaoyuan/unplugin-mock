@@ -182,4 +182,33 @@ describe('runs mock request transform', () => {
     expect(result).resolves.toBeDefined()
     vi.useRealTimers()
   })
+  it('req url params', async() => {
+    const mockData = transformRequest({
+      url: '/api/params/1/2?search=Tedy&page=1&size=10',
+      method: 'get',
+    })
+    expect(mockData).not.toBeNull()
+
+    const _req = {
+      url: 'random',
+    } as unknown as Request
+    const _res = {
+      end: vi.fn(),
+    } as unknown as Response
+
+    const _ctx = {} as unknown as Context
+
+    const result = (mockData!.response as MockRespFunc)(_req, _res, _ctx)
+    expect(result).toBeInstanceOf(Promise)
+    const res = await result
+    expect(res).toMatchInlineSnapshot('undefined')
+    expect(_res.body).toMatchInlineSnapshot(`
+      {
+        "code": 0,
+        "data": {
+          "name": "Tedy Params Match",
+        },
+      }
+    `)
+  })
 })
