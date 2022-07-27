@@ -38,10 +38,13 @@ export default [
     url: '/api/params/:name/:id?',
     method: 'get',
     response: (_req, _res) => {
+      const { name, id } = _req.routes!
       _res.body = {
         code: 0,
         data: {
-          name: 'Tedy Params Match',
+          msg: 'Tedy Params Match',
+          name,
+          id,
         },
       }
     },

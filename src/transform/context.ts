@@ -1,7 +1,7 @@
 import colors from 'picocolors'
 import { parse } from 'regexparam'
 import logger from '../logger'
-import type { ModuleMockHandler } from '@/types'
+import type { MockKoaContext, ModuleMockHandler } from '@/types'
 
 export const QUICK_MOCK_DATA_KEY = 'quickReqData'
 export const REGEX_MOCK_DATA_KEY = 'restReqData'
@@ -62,4 +62,38 @@ export function setMockHandlerContext(values: ModuleMockHandler[], reset = true)
       const key = `${handler.method.toLowerCase()} ${handler.url}`
       quickHandlerStore.set(key, handler)
     })
+}
+
+export function parseRoute(handler: ModuleMockHandler, context: MockKoaContext): MockKoaContext {
+  const matcher = parse(handler.url)
+  if (context.request.URL?.pathname) {
+    const routes = _parseRoutes(context.request.URL?.pathname, matcher)
+    context.request.routes = routes
+  }
+  else if (context.request.url) {
+    const routes = _parseRoutes(
+      new URL(context.request.url, `http://${context.req.headers?.host || 'localhost'}`).pathname,
+      matcher,
+    )
+    context.request.routes = routes
+  }
+  return context
+}
+
+function _parseRoutes(
+  path: string,
+  result: {
+    keys: string[]
+    pattern: RegExp
+  }) {
+  const out: Record<string, string | null> = {}
+  const matches = result.pattern.exec(path)
+  if (!matches)
+    return out
+
+  result.keys.forEach((val: string, ind: number) => {
+    out[val] = matches[ind + 1] || null
+  })
+
+  return out
 }

@@ -16,9 +16,17 @@ export interface ExposeNodeModule extends NodeModule {
 
 export type MockRespData = Object
 
+export interface MockRequest extends Request {
+  routes?: Record<string, string | null>
+}
+
+export interface MockKoaContext extends Context {
+  request: MockRequest
+}
+
 export type MockRespFunc =
-((_req: Request, _res: Response, context: Context) => void) |
-((_req: Request, _res: Response, context: Context) => Promise<Object | void>)
+((_req: MockRequest, _res: Response, context: Context) => void) |
+((_req: MockRequest, _res: Response, context: Context) => Promise<Object | void>)
 
 export interface MockHandler {
   url: string

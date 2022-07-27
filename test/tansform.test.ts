@@ -1,11 +1,13 @@
 import { fileURLToPath } from 'url'
+import type { IncomingMessage } from 'http'
+import { ServerResponse } from 'http'
 import type { SpyInstance } from 'vitest'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Context, Request, Response } from 'http-api-utils'
 import { transformConfig } from '@/transform/config'
 import { getMockHandler, setMockHandlerContext } from '@/transform/context'
 import type { MockRespFunc, ModuleMockHandler } from '@/types'
-import { transformRequest } from '@/transform/request'
+import { createContext, transformRequest } from '@/transform/request'
 
 const mockPath = fileURLToPath(new URL('./fixture', import.meta.url))
 
@@ -184,29 +186,30 @@ describe('runs mock request transform', () => {
   })
   it('req url params', async() => {
     const mockData = transformRequest({
-      url: '/api/params/1/2?search=Tedy&page=1&size=10',
+      url: '/api/params/1/2',
       method: 'get',
     })
     expect(mockData).not.toBeNull()
 
     const _req = {
-      url: 'random',
-    } as unknown as Request
-    const _res = {
-      end: vi.fn(),
-    } as unknown as Response
+      url: '/api/params/1/2?search=Tedy&page=1&size=10',
+    } as unknown as IncomingMessage
 
-    const _ctx = {} as unknown as Context
+    const _res = new ServerResponse(_req)
 
-    const result = (mockData!.response as MockRespFunc)(_req, _res, _ctx)
+    const context = createContext(_req, _res, mockData!)
+
+    const result = (mockData!.response as MockRespFunc)(context.request, context.response, context)
     expect(result).toBeInstanceOf(Promise)
     const res = await result
     expect(res).toMatchInlineSnapshot('undefined')
-    expect(_res.body).toMatchInlineSnapshot(`
+    expect(context.response.body).toMatchInlineSnapshot(`
       {
         "code": 0,
         "data": {
-          "name": "Tedy Params Match",
+          "id": "2",
+          "msg": "Tedy Params Match",
+          "name": "1",
         },
       }
     `)

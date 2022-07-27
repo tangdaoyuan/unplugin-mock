@@ -3,7 +3,7 @@ import { createContext as createKoaContext } from 'http-api-utils'
 import colors from 'picocolors'
 import type { ResolvedConfig } from 'vite'
 import logger from '../logger'
-import { getMockHandler } from './context'
+import { getMockHandler, parseRoute } from './context'
 import type { MockRespFunc, ModuleMockHandler } from '@/types'
 
 export const QUICK_MOCK_DATA_KEY = 'quickReqData'
@@ -57,7 +57,7 @@ export function createTransformRequest(_config?: ResolvedConfig) {
       const msg = `${colors.green('request hit')} ${colors.dim(_req.url)}`
       logger.info(msg)
       try {
-        const context = createKoaContext(_req, _res)
+        const context = createContext(_req, _res, handler)
         await (handler.response as Function)(context.request, context.response, context)
       }
       catch (error) {
@@ -67,4 +67,9 @@ export function createTransformRequest(_config?: ResolvedConfig) {
     }
     _next()
   }
+}
+
+export function createContext(req: IncomingMessage, res: ServerResponse, handler: ModuleMockHandler) {
+  const context = createKoaContext(req, res)
+  return parseRoute(handler, context)
 }
