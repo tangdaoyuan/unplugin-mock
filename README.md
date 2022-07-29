@@ -35,6 +35,11 @@ export default defineConfig({
 - Default: `''`
 - Example: `'./mock'`
 
+### extension
+- File extension of mock files
+- Type: `string[]`
+- Defualt: `['.js', '.ts']`
+
 ### ignore
 - Ignore files
 - Type: `string` | `RegExp` | `(RegExp | string)[]` 
