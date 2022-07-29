@@ -11,7 +11,7 @@ importers:
       eslint: ^8.17.0
       fast-glob: ^3.2.11
       http-api-utils: ^0.1.3
-      import-module-runtime: ^0.1.0
+      import-module-runtime: ^0.1.1
       magic-string: ^0.26.2
       picocolors: ^1.0.0
       regexparam: ^2.0.0
@@ -24,7 +24,7 @@ importers:
       chokidar: 3.5.3
       fast-glob: 3.2.11
       http-api-utils: 0.1.3
-      import-module-runtime: 0.1.0_esbuild@0.14.43
+      import-module-runtime: 0.1.1_esbuild@0.14.43
       magic-string: 0.26.2
       picocolors: 1.0.0
       regexparam: 2.0.0
@@ -2220,8 +2220,8 @@ packages:
       resolve-from: 4.0.0
     dev: true
 
-  /import-module-runtime/0.1.0_esbuild@0.14.43:
-    resolution: {integrity: sha512-gd5YZwiZBEqohOxZU0LyJbMsaa2E1UdaYU3Pby1WHS+4WC55MfXH/CVbe8lNAm869Q/dOWVBf4Dl5FKikiRu1w==}
+  /import-module-runtime/0.1.1_esbuild@0.14.43:
+    resolution: {integrity: sha512-VS28OvygXNy7TVxhLGL3ZMrEDTL0MUOi20hh7PgtKxjbtSnYyN2zrzBqaXAc4SdsFsaEOBUjPsFF3awW4SsaKw==}
     peerDependencies:
       esbuild: '*'
     dependencies:
