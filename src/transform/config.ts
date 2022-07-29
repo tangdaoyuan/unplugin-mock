@@ -8,14 +8,16 @@ export function transformConfig(
   _options: Options,
 ): ModuleMockHandler[] {
   // 1. get mock filepath from options
-  const { mockPath, ignore } = _options
+  const { mockPath, ignore, extension } = _options
   if (!mockPath)
     return []
 
   const ignoreMatcher = getIgnoreMatcher(ignore)
 
+  const exts = extension.join(',') || '*'
+  const scanPath = `${mockPath}/**/*{${exts}}`
   const mockFiles = fg
-    .sync(`${mockPath}/**/*`, {
+    .sync(scanPath, {
       ignore: ignoreMatcher.filter(i => typeof i === 'string') as string[],
     })
     .filter(mockFile =>

@@ -16,6 +16,7 @@ const pluginOptions = {
   refresh: false,
   ignore: [],
   enable: true,
+  extension: ['.js', '.ts'],
 }
 
 describe('runs detect', () => {

@@ -4,6 +4,7 @@ export interface Options {
   verbose?: boolean
   enable: boolean
   mockPath: string
+  extension: string[]
   refresh: boolean
   ignore: string | RegExp | (string | RegExp)[]
 }
