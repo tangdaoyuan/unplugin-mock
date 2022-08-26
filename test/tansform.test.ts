@@ -4,6 +4,7 @@ import { ServerResponse } from 'http'
 import type { SpyInstance } from 'vitest'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Context, Request, Response } from 'http-api-utils'
+import normalize from 'normalize-path'
 import { transformConfig } from '@/transform/config'
 import { getMockHandler, setMockHandlerContext } from '@/transform/context'
 import type { MockRespFunc, ModuleMockHandler } from '@/types'
@@ -12,7 +13,7 @@ import { createContext, transformRequest } from '@/transform/request'
 const mockPath = fileURLToPath(new URL('./fixture', import.meta.url))
 
 const pluginOptions = {
-  mockPath,
+  mockPath: normalize(mockPath),
   refresh: false,
   ignore: [],
   enable: true,
