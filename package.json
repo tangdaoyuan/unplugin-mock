@@ -1,7 +1,7 @@
 {
   "name": "unplugin-mock",
   "version": "1.0.2",
-  "packageManager": "pnpm@7.12.2",
+  "packageManager": "pnpm@7.14.0",
   "description": "keep polite by plugin",
   "keywords": [
     "unplugin",
@@ -76,7 +76,7 @@
     "magic-string": "^0.26.2",
     "picocolors": "^1.0.0",
     "regexparam": "^2.0.0",
-    "unplugin": "^0.9.0"
+    "unplugin": "^0.10.0"
   },
   "devDependencies": {
     "@suger-tdy/eslint-config": "^1.1.4",
@@ -86,8 +86,8 @@
     "eslint": "^8.17.0",
     "normalize-path": "^3.0.0",
     "typescript": "^4.7.3",
-    "unbuild": "^0.8.0",
+    "unbuild": "^0.9.0",
     "vite": "^3.0.0",
-    "vitest": "^0.23.0"
+    "vitest": "^0.24.0"
   }
 }
