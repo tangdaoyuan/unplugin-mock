@@ -79,7 +79,7 @@
     "unplugin": "^0.10.0"
   },
   "devDependencies": {
-    "@suger-tdy/eslint-config": "^1.1.4",
+    "@suger-tdy/eslint-config": "^2.0.0",
     "@types/normalize-path": "^3.0.0",
     "bumpp": "^8.0.0",
     "esbuild": "^0.15.0",
