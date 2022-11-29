@@ -1,7 +1,7 @@
 {
   "name": "unplugin-mock",
   "version": "1.0.2",
-  "packageManager": "pnpm@7.14.0",
+  "packageManager": "pnpm@7.17.1",
   "description": "keep polite by plugin",
   "keywords": [
     "unplugin",
@@ -88,6 +88,6 @@
     "typescript": "^4.7.3",
     "unbuild": "^0.9.0",
     "vite": "^3.0.0",
-    "vitest": "^0.24.0"
+    "vitest": "^0.25.0"
   }
 }
