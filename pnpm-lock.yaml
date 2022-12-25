@@ -45,7 +45,7 @@ importers:
 
   playground:
     specifiers:
-      '@vitejs/plugin-vue': ^3.0.0
+      '@vitejs/plugin-vue': ^4.0.0
       typescript: ^4.7.3
       vite: ^4.0.0
       vite-plugin-reload: ^0.1.0
@@ -54,7 +54,7 @@ importers:
     dependencies:
       vue: 3.2.37
     devDependencies:
-      '@vitejs/plugin-vue': 3.0.1_vite@4.0.3+vue@3.2.37
+      '@vitejs/plugin-vue': 4.0.0_vite@4.0.3+vue@3.2.37
       typescript: 4.7.3
       vite: 4.0.3
       vite-plugin-reload: 0.1.0_vite@4.0.3
@@ -899,11 +899,11 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-vue/3.0.1_vite@4.0.3+vue@3.2.37:
-    resolution: {integrity: sha512-Ll9JgxG7ONIz/XZv3dssfoMUDu9qAnlJ+km+pBA0teYSXzwPCIzS/e1bmwNYl5dcQGs677D21amgfYAnzMl17A==}
+  /@vitejs/plugin-vue/4.0.0_vite@4.0.3+vue@3.2.37:
+    resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: ^3.0.0
+      vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
       vite: 4.0.3
