@@ -1,7 +1,7 @@
 {
   "name": "unplugin-mock",
   "version": "1.0.3",
-  "packageManager": "pnpm@7.19.0",
+  "packageManager": "pnpm@7.25.1",
   "description": "keep polite by plugin",
   "keywords": [
     "unplugin",
@@ -82,12 +82,12 @@
     "@suger-tdy/eslint-config": "^1.1.4",
     "@types/normalize-path": "^3.0.0",
     "bumpp": "^8.0.0",
-    "esbuild": "^0.16.0",
+    "esbuild": "^0.17.0",
     "eslint": "^8.17.0",
     "normalize-path": "^3.0.0",
     "typescript": "^4.7.3",
     "unbuild": "^1.0.0",
     "vite": "^4.0.0",
-    "vitest": "^0.26.0"
+    "vitest": "^0.28.0"
   }
 }
