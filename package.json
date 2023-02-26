@@ -81,7 +81,7 @@
   "devDependencies": {
     "@suger-tdy/eslint-config": "^1.1.4",
     "@types/normalize-path": "^3.0.0",
-    "bumpp": "^8.0.0",
+    "bumpp": "^9.0.0",
     "esbuild": "^0.17.0",
     "eslint": "^8.17.0",
     "normalize-path": "^3.0.0",
